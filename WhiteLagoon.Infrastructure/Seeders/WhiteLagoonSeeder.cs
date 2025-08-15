@@ -28,6 +28,18 @@ namespace WhiteLagoon.Infrastructure.Seeders
 
                     await context.SaveChangesAsync();
                 }
+                if (!context.VillaNumbers.Any())
+                {
+                    var villaNumbersData = await File.ReadAllTextAsync("../WhiteLagoon.Infrastructure/Seeders/SeedData/VillaNumbers.json");
+
+                    var villaNumbers = JsonSerializer.Deserialize<List<VillaNumber>>(villaNumbersData);
+
+                    if (villaNumbers == null) return;
+
+                    context.VillaNumbers.AddRange(villaNumbers);
+
+                    await context.SaveChangesAsync();
+                }
             }
         }
     }
