@@ -13,12 +13,18 @@ namespace WhiteLagoon.Infrastructure.Repositories
 
         public IAmenityRepository Amenity { get; private set; }
 
+        public IBookingRepository Booking { get; private set; }
+
+        public IApplicationUserRepository User { get; private set; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             Villa = new VillaRepository(_context);
             VillaNumber = new VillaNumberRepository(_context);
             Amenity = new AmenityRepository(_context);
+            Booking = new BookingRepository(_context);
+            User = new ApplicationUserRepository(_context);
         }
 
         public void Save()

@@ -1,3 +1,4 @@
+using Stripe;
 using WhiteLagoon.Infrastructure.Extensions;
 using WhiteLagoon.Infrastructure.Seeders;
 
@@ -7,7 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+
 var app = builder.Build();
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
