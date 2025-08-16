@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WhiteLagoon.Application.Common.Interfaces;
 using WhiteLagoon.Infrastructure.Data;
+using WhiteLagoon.Infrastructure.Repositories;
 using WhiteLagoon.Infrastructure.Seeders;
 
 namespace WhiteLagoon.Infrastructure.Extensions;
@@ -16,5 +18,6 @@ public static class ServiceCollectionExtensions
             options.UseSqlServer(connectionString);
         });
         services.AddScoped<IWhiteLagoonSeeder, WhiteLagoonSeeder>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }
