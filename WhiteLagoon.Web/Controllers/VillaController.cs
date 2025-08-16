@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WhiteLagoon.Application.Common.Interfaces;
 using WhiteLagoon.Domain.Entities;
 
 namespace WhiteLagoon.Web.Controllers
 {
+    [Authorize]
     public class VillaController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment) : Controller
     {
         public IActionResult Index()
