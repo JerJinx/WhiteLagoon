@@ -40,6 +40,19 @@ namespace WhiteLagoon.Infrastructure.Seeders
 
                     await context.SaveChangesAsync();
                 }
+                if (!context.Amenities.Any())
+                {
+
+                    var amenityData = await File.ReadAllTextAsync("../WhiteLagoon.Infrastructure/Seeders/SeedData/Amenities.json");
+
+                    var amenities = JsonSerializer.Deserialize<List<Amenity>>(amenityData);
+
+                    if (amenities == null) return;
+
+                    context.Amenities.AddRange(amenities);
+
+                    await context.SaveChangesAsync();
+                }
             }
         }
     }
