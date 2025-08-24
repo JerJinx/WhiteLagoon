@@ -40,11 +40,6 @@ namespace WhiteLagoon.Web.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            if (!roleManager.RoleExistsAsync(Constants.Role_Admin).GetAwaiter().GetResult())
-            {
-                roleManager.CreateAsync(new IdentityRole(Constants.Role_Admin)).Wait();
-                roleManager.CreateAsync(new IdentityRole(Constants.Role_Customer)).Wait();
-            }
 
             RegisterVM registerVM = new()
             {

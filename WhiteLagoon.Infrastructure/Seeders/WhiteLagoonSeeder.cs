@@ -1,17 +1,42 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using WhiteLagoon.Application.Common.Utility;
 using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Infrastructure.Data;
 
 namespace WhiteLagoon.Infrastructure.Seeders
 {
-    internal class WhiteLagoonSeeder(ApplicationDbContext context) : IWhiteLagoonSeeder
+    internal class WhiteLagoonSeeder(ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager) : IWhiteLagoonSeeder
     {
         public async Task Seed()
         {
             if (context.Database.GetPendingMigrations().Any())
             {
                 await context.Database.MigrateAsync();
+            }
+
+            if (!roleManager.RoleExistsAsync(Constants.Role_Admin).GetAwaiter().GetResult())
+            {
+                roleManager.CreateAsync(new IdentityRole(Constants.Role_Admin)).Wait();
+                roleManager.CreateAsync(new IdentityRole(Constants.Role_Customer)).Wait();
+
+                await userManager.CreateAsync(new ApplicationUser
+                {
+                    UserName = "admin@test.com",
+                    Email = "admin@test.com",
+                    Name = "Admin Jer",
+                    NormalizedEmail = "ADMIN@TEST.COM",
+                    NormalizedUserName = "ADMIN@TEST.COM",
+                    PhoneNumber = "1234567890"
+                }, "P@ssw0rd");
+
+                ApplicationUser user = await context.ApplicationUsers.FirstOrDefaultAsync(u => u.Email == "admin@test.com");
+                await userManager.AddToRoleAsync(user, Constants.Role_Admin);
+
             }
 
             if (await context.Database.CanConnectAsync())
