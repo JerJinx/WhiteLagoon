@@ -40,7 +40,7 @@ namespace WhiteLagoon.Infrastructure.Repositories
             {
                 foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(property);
+                    query = query.Include(property.Trim());
                 }
             }
             return query.FirstOrDefault();
@@ -66,7 +66,7 @@ namespace WhiteLagoon.Infrastructure.Repositories
             {
                 foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(property);
+                    query = query.Include(property.Trim());
                 }
             }
             return query.ToList();

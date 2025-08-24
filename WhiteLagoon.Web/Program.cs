@@ -1,16 +1,15 @@
 using Stripe;
 using Syncfusion.Licensing;
-using WhiteLagoon.Application.Services.Implementation;
-using WhiteLagoon.Application.Services.Interface;
 using WhiteLagoon.Infrastructure.Extensions;
 using WhiteLagoon.Infrastructure.Seeders;
+using WhiteLagoon.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddApplication();
 
 
 var app = builder.Build();

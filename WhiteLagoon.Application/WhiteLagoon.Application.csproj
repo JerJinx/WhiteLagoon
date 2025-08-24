@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WhiteLagoon.Domain\WhiteLagoon.Domain.csproj" />
+	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
+	  <ProjectReference Include="..\WhiteLagoon.Domain\WhiteLagoon.Domain.csproj" />
+	<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.3.0" />
   </ItemGroup>
 
 </Project>
